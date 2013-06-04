@@ -1,67 +1,60 @@
-
 /**
- * Module dependencies.
- */
-
+* file: app.js 
+*/
 var express = require('express')
-  , app = express()  
+  , app = express()
   , server = require('http').createServer(app)
   , path = require('path')
   , io = require('socket.io').listen(server)
   , spawn = require('child_process').spawn
   , omx = require('omxcontrol');
 
+app.configure(function() {
+    app.set('port', 1234)
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.set('view engine', 'jade');
+    app.set('views', path.join(__dirname, 'templates'));
+    app.use(omx());
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
 
-
-// all environments
-app.set('port', process.env.TEST_PORT || 8080);
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(omx());
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
-//Routes
+// ROUTES
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
+    res.render('index');
 });
 
 app.get('/remote', function (req, res) {
-  res.sendfile(__dirname + '/public/remote.html');
+    res.render('remote');
 });
 
 app.get('/play/:video_id', function (req, res) {
-  
+    res.render('404');
 });
 
 
-//Socket.io Congfig
+// SOCKET.IO CONFIG
 io.set('log level', 1);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var ss;
+var ss; //There has to be a better way to do this
 
-//Run and pipe shell script output 
+//Run and pipe shell script output
 function run_shell(cmd, args, cb, end) {
-    var spawn = require('child_process').spawn,
-        child = spawn(cmd, args),
-        me = this;
-    child.stdout.on('data', function (buffer) { cb(me, buffer) });
+    var spawn = require('child_process').spawn
+      , child = spawn(cmd, args);
+    child.stdout.on('data', function (buffer) { cb(this, buffer) });
     child.stdout.on('end', end);
 }
 
 //Socket.io Server
 io.sockets.on('connection', function (socket) {
- 
+
  socket.on("screen", function(data){
    socket.type = "screen";
    ss = socket;
@@ -71,11 +64,10 @@ io.sockets.on('connection', function (socket) {
    socket.type = "remote";
    console.log("Remote ready...");
  });
- 
+
  socket.on("controll", function(data){
-	console.log(data);
+    console.log(data);
    if(socket.type === "remote"){
-     
      if(data.action === "tap"){
          if(ss != undefined){
             ss.emit("controlling", {action:"enter"}); 
