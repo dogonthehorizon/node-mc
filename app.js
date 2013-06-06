@@ -2,12 +2,12 @@
 * file: app.js
 */
 var express = require('express')
-  , app = express()
-  , server = require('http').createServer(app)
-  , path = require('path')
-  , io = require('socket.io').listen(server)
-  , spawn = require('child_process').spawn
-  , omx = require('omxcontrol');
+  , app     = express()
+  , server  = require('http').createServer(app)
+  , path    = require('path')
+  , io      = require('socket.io').listen(server)
+  , spawn   = require('child_process').spawn
+  , omx     = require('omxcontrol');
 
 app.configure(function() {
     app.set('port', 1234)
@@ -22,10 +22,10 @@ app.configure(function() {
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-
 // ROUTES
 app.get('/', function (req, res) {
-    res.render('index');
+    var localAddress = process.env.SERVER_ADDRESS || '127.0.0.1:';
+    res.render('index', { url: localAddress, port: app.get('port')});
 });
 
 app.get('/remote', function (req, res) {
