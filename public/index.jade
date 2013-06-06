@@ -29,3 +29,29 @@ html
         script(src='js/jquery-2.0.1.min.js')
         script(src='js/mustache.js', type='text/javascript')
         script(src='js/main.js', type='text/javascript')
+        script
+            var socket = io.connect("#{url}:#{port}");
+            socket.on('connect', function(data) {
+                socket.emit('screen');
+            });
+
+            socket.on('controlling', function(data) {
+                var current = $('.selected');
+                if(data.action === 'goLeft') {
+                    $('.selected').removeClass('selected');
+
+                    if(($current).prev().attr('id') === 'start-block') {
+                        $('#start-block').next().addClass('selected');
+                    } else {
+                        $(current).next().addClass('selected');
+                    }
+                } else if(data.action === 'goRight') {
+                    $('.selected').removeClass('selected');
+                    if($(current).next().attr('id') === 'end-block') {
+                        $('#start-block').next().addClass('selected');
+                    } else {
+                        $(current).next().addClass('selected');
+                    }
+                } else if(data.action === 'enter') {
+                }
+            });
