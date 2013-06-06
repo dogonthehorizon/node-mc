@@ -1,5 +1,5 @@
 /**
-* file: app.js 
+* file: app.js
 */
 var express = require('express')
   , app = express()
@@ -16,10 +16,12 @@ app.configure(function() {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.set('view engine', 'jade');
-    app.set('views', path.join(__dirname, 'templates'));
+    app.set('views', path.join(__dirname, 'public'));
+    app.use(express.static(__dirname + '/public'));
     app.use(omx());
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
+
 
 // ROUTES
 app.get('/', function (req, res) {
@@ -45,7 +47,7 @@ server.listen(app.get('port'), function(){
 var ss; //There has to be a better way to do this
 
 //Run and pipe shell script output
-function run_shell(cmd, args, cb, end) {
+function shellCmd(cmd, args, cb, end) {
     var spawn = require('child_process').spawn
       , child = spawn(cmd, args);
     child.stdout.on('data', function (buffer) { cb(this, buffer) });
@@ -60,6 +62,7 @@ io.sockets.on('connection', function (socket) {
    ss = socket;
    console.log("Screen ready...");
  });
+
  socket.on("remote", function(data){
    socket.type = "remote";
    console.log("Remote ready...");
@@ -70,39 +73,39 @@ io.sockets.on('connection', function (socket) {
    if(socket.type === "remote"){
      if(data.action === "tap"){
          if(ss != undefined){
-            ss.emit("controlling", {action:"enter"}); 
+            ss.emit("controlling", {action:"enter"});
             }
      }
      else if(data.action === "swipeLeft"){
       if(ss != undefined){
-          ss.emit("controlling", {action:"goLeft"}); 
+          ss.emit("controlling", {action:"goLeft"});
           }
      }
      else if(data.action === "swipeRight"){
        if(ss != undefined){
-           ss.emit("controlling", {action:"goRight"}); 
+           ss.emit("controlling", {action:"goRight"});
            }
      }
    }
  });
- 
+
  socket.on("video", function(data){
-    
+
     if( data.action === "play"){
     var id = data.video_id,
          url = "http://www.youtube.com/watch?v="+id;
-                 
-    var runShell = new run_shell('youtube-dl',['-o','%(id)s.%(ext)s','-f','/18/22',url],
-        function (me, buffer) { 
+
+    var runShell = new shellCmd('youtube-dl',['-o','%(id)s.%(ext)s','-f','/18/22',url],
+        function (me, buffer) {
             me.stdout += buffer.toString();
             socket.emit("loading",{output: me.stdout});
             console.log(me.stdout)
          },
-        function () { 
+        function () {
             //child = spawn('omxplayer',[id+'.mp4']);
             omx.start(id+'.mp4');
         });
-    }    
-     
+    }
+
  });
 });
