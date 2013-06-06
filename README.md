@@ -1,7 +1,7 @@
 node-mc
 =======
 
-node-mc is a fork of the work done by Lamba Labs. The goal of node-mc is to serve as a light-weight alternative to popular media centers such as xbmc.
+node-mc is a fork of the work done by [Lamba Labs](https://github.com/DonaldDerek/RaspberryPiTV). The goal of node-mc is to serve as a light-weight alternative to popular media centers such as xbmc.
 
 **note** this is not yet intended for use.
 
