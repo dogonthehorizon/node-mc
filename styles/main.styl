@@ -1,0 +1,38 @@
+
+$background = #5cbf94;
+
+body, html {
+    padding: 0;
+    margin: 0;
+    background-color: $background;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+/* TODO add some font-faces */
+
+.weather, .icon {
+    font-family: 'Weather';
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    } to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+#loader {
+    color: rgba(255,255,255,0.8);
+    font-family: 'Weather';
+    -webkit-animation: spin 900ms linear infiniate;
+    -webkit-transform-origin: 50% 100%;
+}

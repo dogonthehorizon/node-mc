@@ -8,13 +8,23 @@ module.exports = function(grunt) {
 
         stylus: {
             compile: {
-                compress: false
-            },
-            files: {
-                'public/css/main.css':'styles/*.styl'
+                compress: true,
+                files: {
+                    'public/css/main.css': 'styles/*.styl'
+                }
+            }
+        },
+
+        watch: {
+            files: ['styles/*.styl'],
+            tasks: ['stylus'],
+            options: {
+                nospawn: true,
+                interrupt: true
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.registerTask('install-assets', ['stylus']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.registerTask('assets', ['stylus']);
 }

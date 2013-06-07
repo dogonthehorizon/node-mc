@@ -9,12 +9,13 @@
     "express": "~3.2.x",
     "jade": "~0.x.x",
     "stylus": "~ 0.32.x",
-    "socket.io":"~0.9.x",
-    "omxcontrol":"*"
+    "socket.io": "~0.9.x",
+    "omxcontrol": "*"
   },
   "devDependencies": {
-      "grunt": "~ 0.4.x",
-      "grunt-cli": "~ 0.1.x",
-      "grunt-contrib-stylus": "~ 0.5.x"
+    "grunt": "~ 0.4.x",
+    "grunt-cli": "~ 0.1.x",
+    "grunt-contrib-stylus": "~ 0.5.x",
+    "grunt-contrib-watch": "~0.4.4"
   }
 }
