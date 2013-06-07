@@ -5,6 +5,12 @@ node-mc is a fork of the work done by [Lamba Labs](https://github.com/DonaldDere
 
 **note** this is not yet intended for use.
 
+TODO
+----
+    * Look into document generation through [Docco](http://jashkenas.github.io/docco/)
+    * Flesh out grunt tasks
+    * Come up with a sane stylus structure
+
 License
 -------
 Copyright (c) 2013, Donald Derek, Fernando Freire
