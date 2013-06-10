@@ -3,12 +3,12 @@ html
     head
         meta(charset='utf-8')
         title node-mc
-        link(href='css/style.css', rel='stylesheet', type='text/css')
+        link(href='css/main.css', rel='stylesheet', type='text/css')
         meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
     body
         #loader.status.fadeInDown.animated.hidden Y
         .logo
-        .logo-txt
+        .logo-text
             h2 node-mc
         .class-block
             #start-block
@@ -26,7 +26,7 @@ html
                 img(src='images/ll_logo.png')
 
         script(src='socket.io/socket.io.js')
-        script(src='js/jquery-2.0.1.min.js')
+        script(src='js/vendor/jquery-2.0.2.min.js')
         script(src='js/main.js')
         script.
             var socket = io.connect("#{url}:#{port}");
@@ -54,3 +54,26 @@ html
                 } else if(data.action === 'enter') {
                 }
             });
+    script(id='weatherTpl', type='text/template')
+        li
+            p.icon shit
+            p.temp
+                span.low
+                -
+                span.high
+
+            p.day
+    ul.hide
+        li.rpi-svg.hide
+            svg(xmlns='http://www.w3.org/2000/svg', viewBox='0 0 570 720')
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
+                path(fill="#FFF")
