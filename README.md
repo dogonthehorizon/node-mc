@@ -10,6 +10,8 @@ TODO
 *   Look into document generation through [Docco](http://jashkenas.github.io/docco/)
 *   Flesh out grunt tasks
 *   Come up with a sane stylus structure
+*   Consider porting to one of the desktop WebKits (Qt, GTK+, wx) [Needs more research]
+    *   This might allow for content streaming while keeping the interface rendering in HTML,CSS,JS
 
 License
 -------
