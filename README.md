@@ -1,3 +1,9 @@
+DEPRECATED
+==========
+
+### Development has carried on in spirit at the following repository:
+### [WowSuchDogestream/dogestream](https://github.com/WowSuchDogestream/dogestream)
+
 node-mc
 =======
 
