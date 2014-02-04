@@ -1,8 +1,9 @@
-DEPRECATED
+DEPRECATED ![Generic](http://img.shields.io/status/inactive.png?color=red)
 ==========
 
-### Development has carried on in spirit at the following repository:
-### [WowSuchDogestream/dogestream](https://github.com/WowSuchDogestream/dogestream)
+#### Development has carried on in spirit at the following repositories:
+#### [WowSuchDogestream/dogestream](https://github.com/WowSuchDogestream/dogestream)
+#### [LiquidEdgeStudios/Nile](https://github.com/LiquidEdgeStudios/Nile)
 
 node-mc
 =======
